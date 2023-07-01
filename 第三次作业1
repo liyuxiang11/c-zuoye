@@ -1,0 +1,25 @@
+#include<iostream>
+using namespace std;
+int main(){
+    int N;
+    cin>>N;
+    while(N--){
+        int m,n,a,i;
+        int k=0,b=0,cnt=0;
+        cin>>m>>n;
+        for(i=m;cnt<n;i++){
+            b=i;
+            for(;b>0;b/=10){
+                a=b%10;
+                k=k*10+a;
+            }
+            if(k==i){
+                cout<<k<<" ";
+                cnt++;
+            }
+            k=0;
+        }
+
+    }
+    return 0;
+}
