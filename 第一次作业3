@@ -1,0 +1,48 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+class Int {
+private:
+char emailAddr[64]; 
+public:
+void getEmail() {
+scanf("%s", emailAddr);
+}
+int judgeEmail() {
+int len = strlen(emailAddr);
+int cnt1 = 0, cnt2 = 0;
+bool valid = true;
+for (int i = 0; i < len; i++) {
+if (emailAddr[i] == '@') {
+cnt1++;
+}
+if (emailAddr[i] == '.') {
+cnt2++;
+}
+if (emailAddr[i] != '@' && emailAddr[i] != '.') {
+if (!(emailAddr[i] >= 'A' && emailAddr[i] <= 'Z' || emailAddr[i] >= 'a' && emailAddr[i] <= 'z' || emailAddr[i] >= '0' && emailAddr[i] <= '9' || emailAddr[i] == '-' || emailAddr[i] == '_')) {
+valid = false;
+break;
+}
+}
+}
+if (cnt1 != 1 || cnt2 != 1 || !valid || emailAddr[0] == '@' || emailAddr[len - 1] == '@' || emailAddr[len - 1] == '.') {
+return -1;
+}
+return 1;
+}
+void showRes(int n) {
+if (n == 1) {
+cout << "yes" << endl;
+}
+else {
+cout << "no" << endl;
+}
+}
+};
+int main() {
+Int e;
+e.getEmail();
+e.showRes(e.judgeEmail());
+return 0;
+}
