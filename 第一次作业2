@@ -1,0 +1,70 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int resultCount;
+
+class Integer {
+private:
+int size;
+int nums[256], result[256];
+int count;
+int visited[256];
+
+public:
+void setSize(int n) {
+    size = n;
+    for (int i = 0; i < size; i++) {
+        visited[i] = 1;
+    }
+}
+void setNums(int arr[]) {
+    for (int i = 0; i < size; i++) {
+        nums[i] = arr[i];
+    }
+}
+void countDuplicates() {
+    resultCount = 0;
+    for (int i = 0; i < size - 1; i++) {
+        count = 0;
+        for (int j = i + 1; j < size; j++) {
+            if (nums[i] == nums[j] && visited[j] == 1) {
+                count++;
+                visited[j] = 0;
+            }
+        }
+        if (count == 1) {
+            result[resultCount] = nums[i];
+            resultCount++;
+        }
+    }
+}
+void showResult() {
+    if (resultCount == 0) {
+        cout << "none" << endl;
+        return;
+    }
+    for (int i = 0; i < resultCount; i++) {
+        cout << result[i] << " ";
+    }
+    cout << endl;
+}
+};
+
+int main() {
+Integer intA;
+int n;
+int arr[256];
+
+cin >> n;
+
+for (int i = 0; i < n; i++) {
+    cin >> arr[i];
+}
+
+intA.setSize(n);
+intA.setNums(arr);
+intA.countDuplicates();
+intA.showResult();
+return 0;
+}
