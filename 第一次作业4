@@ -1,0 +1,86 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int gcd(int a, int b) {
+    return b == 0 ? a : gcd(b, a % b);
+}
+
+class Fraction {
+private:
+    int up, down;
+public:
+    Fraction() : up(0), down(1) {} // 默认构造函数，初始化分数为0/1
+
+    void getFraction(char f[]) {
+        int len = strlen(f);
+        int i = 0;
+        if (f[i] == '-') { // 判断是否是负数
+            i++;
+            up = -1;
+        }
+        else {
+            up = 1;
+        }
+        for (; f[i] != '/' && i < len; i++) {
+            if (f[i] >= '0' && f[i] <= '9') {
+                up = up * 10 + f[i] - '0';
+            }
+        }
+        i++; // 跳过'/'字符
+        for (; i < len; i++) {
+            if (f[i] >= '0' && f[i] <= '9') {
+                down = down * 10 + f[i] - '0';
+            }
+        }
+    }
+
+    bool isValid() {
+        return down != 0;
+    }
+
+    void simplify() {
+        int g = gcd(up, down);
+        up /= g;
+        down /= g;
+        if (down < 0) {
+            up = -up;
+            down = -down;
+        }
+    }
+
+    void add(Fraction other) {
+        int g = gcd(down, other.down);
+        int lcm = down * other.down / g;
+        up = up * (lcm / down) + other.up * (lcm / other.down);
+        down = lcm;
+        simplify();
+    }
+
+    void print() {
+        if (down == 1) {
+            cout << up << endl;
+        }
+        else {
+            cout << up << "/" << down << endl;
+        }
+    }
+};
+
+int main() {
+    int n;
+    cin >> n;
+    Fraction f, sum;
+    char num[10];
+    for (int i = 0; i < n; i++) {
+        cin >> num;
+        f.getFraction(num);
+        if (!f.isValid()) {
+            cout << "error" << endl;
+            return 0;
+        }
+        sum.add(f);
+    }
+    sum.print();
+    return 0;
+}
