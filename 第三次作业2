@@ -1,0 +1,24 @@
+#include<iostream>
+using namespace std;
+double A(int r,double l);
+double B(int r,double s);
+int main(){
+    int r,d;
+    double l,s;
+    cin>>r;
+    d=2*r;
+    cout<<"直径="<<d<<endl;
+    l=A(r,l);
+    cout<<"周长="<<l<<endl;
+    s=B(r,s);
+    cout<<"面积="<<s<<endl;
+    return 0;
+}
+double A(int r,double l){
+    l=2*3.14*r;
+    return l;
+}
+double B(int r,double s){
+    s=3.14*r*r;
+    return s;
+}
