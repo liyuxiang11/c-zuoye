@@ -1,0 +1,15 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int main(){
+    int n,m;
+    int sum=0;
+    cin>>n;
+    for(int i=0;i<3;i++){
+        m=n%10;
+        sum+=m;
+        n/=10;
+    }
+    cout<<sum;
+    return 0;    
+}
